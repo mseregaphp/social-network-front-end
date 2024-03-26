@@ -6,20 +6,49 @@ import { store } from "./app/store"
 import "./index.css"
 // 1. import `NextUIProvider` component
 import { NextUIProvider } from "@nextui-org/react"
-import { createBrowserRouter } from "react-router-dom"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import path from "path"
 import { ThemeProvider } from "./components/theme-provider"
+import { Auth } from "./pages/auth"
+import { Layout } from "./components/layout"
+import { Posts } from "./pages/posts"
+import { CurrentPost } from "./pages/current-post"
+import { UserProfile } from "./pages/user-profile"
+import { Followers } from "./pages/followers"
+import { Following } from "./pages/following"
 
 const container = document.getElementById("root")
 
 const router = createBrowserRouter([
   {
     path: "/auth",
-    element: <h1>Ayth</h1>,
+    element: <Auth />,
   },
   {
     path: "/",
-    element: <h1>Layout</h1>,
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Posts />,
+      },
+      {
+        path: "posts/:id",
+        element: <CurrentPost />,
+      },
+      {
+        path: "users/:id",
+        element: <UserProfile />,
+      },
+      {
+        path: "followers",
+        element: <Followers />,
+      },
+      {
+        path: "following",
+        element: <Following />,
+      },
+    ],
   },
 ])
 
@@ -31,7 +60,7 @@ if (container) {
       <Provider store={store}>
         <NextUIProvider>
           <ThemeProvider>
-            <App />
+            <RouterProvider router={router} />
           </ThemeProvider>
         </NextUIProvider>
       </Provider>
