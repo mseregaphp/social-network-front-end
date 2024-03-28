@@ -1,11 +1,9 @@
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react"
 
 const App = () => {
   return (
     <div className="App">
-      <Button color="primary">
-        Button
-      </Button>
+      <Button color="primary">Button</Button>
     </div>
   )
 }
